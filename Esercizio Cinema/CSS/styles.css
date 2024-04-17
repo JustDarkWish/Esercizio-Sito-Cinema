@@ -1,3 +1,21 @@
 body {
     background-color: rgba(154, 152, 152, 0.7);
 }
+
+.container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.noUnderline {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    font-size: 20px;
+}
+
+.noUnderline a, li {
+    list-style-type: none;
+    text-decoration: none;
+    margin-top: 0.6rem;
+}
