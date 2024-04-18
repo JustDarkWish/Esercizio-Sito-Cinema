@@ -37,6 +37,14 @@ li, a:hover {
     margin: auto;
 }
 
+.back {
+    width: 40px;
+    height: 30px;
+    border-radius: 6px;
+    border-style: none;
+    margin-right: 6px;
+}
+
 .movieImg {
     height: 800px;
     width: 625px;
@@ -47,9 +55,12 @@ li, a:hover {
     margin: auto;
 }
 
-.locandinaYourName {
-    max-width: 100%;
-    max-height: 100%;
+.next {
+    width: 40px;
+    height: 30px;
+    border-radius: 6px;
+    border-style: none;
+    margin-left: 6px;
 }
 
 .movieInfo {
