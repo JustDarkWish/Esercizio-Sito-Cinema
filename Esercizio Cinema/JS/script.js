@@ -1,48 +1,66 @@
-const urlFilmUno = ("https://www.omdbapi.com/?t=your+name&y=2016&apikey=93b236e6&");
-const urlFilmDue = ("https://www.omdbapi.com/?t=jujutsu+kaisen&y=2021&apikey=93b236e6&");
-const urlFilmTre = ("http://www.omdbapi.com/?t=Men+in+Black&y=1997&apikey=93b236e6&");
+const arrayFilm = [
+    "https://www.omdbapi.com/?t=your+name&y=2016&apikey=93b236e6&",
+    "https://www.omdbapi.com/?t=jujutsu+kaisen&y=2021&apikey=93b236e6&",
+    "http://www.omdbapi.com/?t=Men+in+Black&y=1997&apikey=93b236e6&"
+];
+let locandinaFilm = document.querySelector('#locandinaFilm')
+let posizione = 0;
+let arraySalvati = [];
+let informazioniFilm = document.querySelector('#movieInfoJs')
 
-fetch(urlFilmUno)
+let btnBack = document.querySelector('#bottoneBack');
+let btnNext = document.querySelector('#bottoneNext');
 
-.then(data => {
-    data.json()
+/* ---------------------------------------------- Script ---------------------------------------------- */
+
+arrayFilm.forEach(urlFilm => {
+
+    fetch(urlFilm)
+    .then(response => {
+        return response.json()
+    })
+    .then(data => {
+        arraySalvati.push(data);
+
+        if(arraySalvati.length == 1){
+            creaCarosello()
+        }
+    })
 })
 
-.then(response => {
+function creaCarosello() {
 
-    stampaTitolo(response);
 
-    creaCarosello(response);
+    let posterUrl = arraySalvati[posizione].Poster;
+    let posterImg = document.createElement('img');
 
-    stampaInformazioni(response);
-});
+    posterImg.src = posterUrl;
 
-fetch(urlFilmDue)
+    locandinaFilm.innerHTML = '';
+    locandinaFilm.appendChild(posterImg);
+}
 
-.then(data => {
-    data.json()
-})
+function back() {
+    posizione--
+    
+    if(posizione < 0) {
+        posizione = 2;
+    }
 
-.then(response => {
+    creaCarosello();
+}
 
-    stampaTitolo(response);
+btnBack.addEventListener('click', back);
 
-    creaCarosello(response);
+function next() {
+    posizione++
+    
+    if(posizione > 2) {
+        posizione = 0;
+    }
 
-    stampaInformazioni(response);
-})
+    creaCarosello();
+}
 
-fetch(urlFilmTre)
+btnNext.addEventListener('click', next);
 
-.then(data => {
-    data.json()
-})
-
-.then(response => {
-
-    stampaTitolo(response);
-
-    creaCarosello(response);
-
-    stampaInformazioni(response);
-})
