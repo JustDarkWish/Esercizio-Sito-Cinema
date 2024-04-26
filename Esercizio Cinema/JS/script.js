@@ -100,16 +100,50 @@ function next() {
 btnNext.addEventListener('click', next);
 
 function barraRicerca() {
-    if (inputText.value != ''){
-        let urlDinamico=`http://www.omdbapi.com/?s=${inputText.value}&apikey=93b236e6&"`;
+    if (inputText.value != '') {
+        let urlDinamico = `http://www.omdbapi.com/?s=${inputText.value}&apikey=93b236e6&`;
         fetch(urlDinamico)
-    .then(response => {
-        return response.json()
-    })
-    .then(data => {
-        
-    })
-}
+        .then(response => {
+            return response.json();
+        })
+        .then(data => {
+            // Processa i dati ricevuti
+            if (data.Search) {
+                // Cicla attraverso i risultati della ricerca e crea elementi HTML per ognuno
+                data.Search.forEach(result => {
+                    let movieTitle = result.Title;
+                    let moviePoster = result.Poster;
+                    
+                    // Crea elementi HTML per visualizzare i risultati della ricerca
+                    let movieResult = document.createElement('div');
+                    movieResult.classList.add('movieResult');
+
+                    let titleElement = document.createElement('h3');
+                    titleElement.textContent = movieTitle;
+                    
+                    let posterElement = document.createElement('img');
+                    posterElement.src = moviePoster;
+                    
+                    
+                    // Aggiungi gli elementi creati alla pagina
+                    movieResult.appendChild(titleElement);
+                    movieResult.appendChild(posterElement);
+                    
+                    // Aggiungi il risultato della ricerca alla pagina
+                    document.body.appendChild(movieResult);
+                    
+                    
+                });
+            } else {
+                // Gestisci il caso in cui la ricerca non restituisce risultati
+                console.log("Nessun risultato trovato");
+            }
+        })
+        .catch(error => {
+                // Gestisci eventuali errori nella chiamata all'API
+                console.error('Si è verificato un errore:', error);
+            });
+    }
 }
 btnCerca.addEventListener("click",barraRicerca);
 //    http://www.omdbapi.com/?s=your+name.&apikey=93b236e6&",
