@@ -30,11 +30,12 @@ li, a:hover {
 }
 
 .containerMain {
-    display: flex;
-    height: 800px;
+    flex-direction: column;
+    height: 2000px;
     width: 1250px;
     border: solid 2px yellow;
     margin: auto;
+    align-items: center;
 }
 
 .movieTitle {
@@ -52,13 +53,13 @@ li, a:hover {
 }
 
 .movieImg {
-    height: 650px;
+    height: 800px;
     width: 625px;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: solid 2px rgb(72, 0, 255);
-    margin: auto;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .next {
@@ -69,9 +70,8 @@ li, a:hover {
     margin-left: 6px;
 }
 
-.movieInfo {
-    height: 795px;
-    width: 610px;
-    border: solid 2px rgb(255, 0, 34);
-    margin: auto;
+h2, p {
+    display: flex;
+    justify-content: center;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
