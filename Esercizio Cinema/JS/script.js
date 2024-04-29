@@ -2,148 +2,171 @@ const arrayFilm = [
     "https://www.omdbapi.com/?t=your+name&y=2016&apikey=93b236e6&",
     "https://www.omdbapi.com/?t=jujutsu+kaisen&y=2021&apikey=93b236e6&",
     "http://www.omdbapi.com/?t=Men+in+Black&y=1997&apikey=93b236e6&"
-];
-let locandinaFilm = document.querySelector('#locandinaFilm');
-let posizione = 0;
-let arraySalvati = [];
-let informazioniFilm = document.querySelector(".movieInfo");
-
-let btnBack = document.querySelector('#bottoneBack');
-let btnNext = document.querySelector('#bottoneNext');
-
-let movieTitle = document.querySelector(".movieTitle");
-let inputText = document.querySelector(".input");
-let btnCerca = document.querySelector("#btnCerca");
-
-/* ---------------------------------------------- Script ---------------------------------------------- */
-
-arrayFilm.forEach(urlFilm => {
-
+  ];
+  let locandinaFilm = document.querySelector('#locandinaFilm')
+  let posizione = 0;
+  let arraySalvati = [];
+  let informazioniFilm = document.querySelector('#movieInfoJs')
+  
+  let btnBack = document.querySelector('#bottoneBack');
+  let btnNext = document.querySelector('#bottoneNext');
+  
+  /* ---------------------------------------------- Script ---------------------------------------------- */
+  
+  arrayFilm.forEach(urlFilm => {
+  
     fetch(urlFilm)
     .then(response => {
         return response.json()
     })
     .then(data => {
         arraySalvati.push(data);
-
+  
         if(arraySalvati.length == 1){
-            creaCarosello();
-            
-            
+            creaCarosello()
         }
     })
-})
-
-function creaCarosello() {
-    let posterUrl = arraySalvati[posizione].Poster;
-  let posterImg = document.createElement('img');
-
-  let posterTitleText = arraySalvati[posizione].Title;
-  let posterTitle = document.createElement('h2');
-
-  let posterYearDate = arraySalvati[posizione].Year;
-  let posterYear = document.createElement('p');
-
-  let posterActorsFilm = arraySalvati[posizione].Actors;
-  let posterActors = document.createElement('p');
-
-  let posterRuntimeFilm= arraySalvati[posizione].Runtime;
-  let posterRuntime = document.createElement('p');
-
-  let posterGenreFilm = arraySalvati[posizione].Genre;
-  let posterGenre = document.createElement('p');
-
-  posterImg.src = posterUrl;
-  posterTitle.textContent = posterTitleText;
-  posterYear.textContent = posterYearDate;
-  posterActors.textContent = posterActorsFilm;
-  posterRuntime.textContent = posterRuntimeFilm;
-  posterGenre.textContent = posterGenreFilm;
-
-
-
-  locandinaFilm.innerHTML = '';
-
-  locandinaFilm.appendChild(posterTitle);
-  locandinaFilm.appendChild(posterImg);
-  locandinaFilm.appendChild(posterActors);
-  locandinaFilm.appendChild(posterRuntime);
-  locandinaFilm.appendChild(posterYear);
-  locandinaFilm.appendChild(posterGenre);
-
-}
-
-function back() {
-    posizione--
+  })
+  console.log(arraySalvati);
+  
+  function creaCarosello() {
+    let { Poster: posterUrl, Title: posterTitleText, Year: posterYearDate, Actors: posterActorsFilm, Runtime: posterRuntimeFilm, Genre: posterGenreFilm } = arraySalvati[posizione];
+  
+    let posterImg = document.createElement('img');
+    posterImg.src = posterUrl;
+  
+    let posterTitle = document.createElement('h2');
+  
+    posterTitle.classList.add("titoloFilm");
+  
+    posterTitle.innerHTML = `<a href="https://en.wikipedia.org/w/index.php?search=${encodeURIComponent(posterTitleText)}" target="_blank">${posterTitleText}</a>`;
+  
+    let posterYear = document.createElement('p');
+    posterYear.textContent = posterYearDate;
+  
+    let posterActors = document.createElement('p');
     
+    posterActors.classList.add('movieActors');
+    posterActors.innerHTML = posterActorsFilm.split(", ").map(actor => {
+        return `<a href="https://en.wikipedia.org/w/index.php?search=${encodeURIComponent(actor)}" target="_blank">${actor}</a>`;
+    }).join(", ");
+  
+    let posterRuntime = document.createElement('p');
+    posterRuntime.textContent = posterRuntimeFilm;
+  
+    let posterGenre = document.createElement('p');
+    posterGenre.textContent = posterGenreFilm;
+  
+    locandinaFilm.innerHTML = '';
+    locandinaFilm.appendChild(posterTitle);
+    locandinaFilm.appendChild(posterImg);
+    locandinaFilm.appendChild(posterActors);
+    locandinaFilm.appendChild(posterRuntime);
+    locandinaFilm.appendChild(posterYear);
+    locandinaFilm.appendChild(posterGenre);
+  }
+  
+   
+  
+  
+  
+  
+  // funzione per il tasto
+  function back() {
+    posizione--
+  
     if(posizione < 0) {
         posizione = 2;
     }
-
+  
     creaCarosello();
-    
-}
-
-btnBack.addEventListener('click', back);
-
-function next() {
+  }
+  
+  btnBack.addEventListener('click', back);
+  
+  
+  
+  function next() {
     posizione++
-    
+  
     if(posizione > 2) {
         posizione = 0;
     }
-
-    creaCarosello();
   
-}
-
-btnNext.addEventListener('click', next);
-
-function barraRicerca() {
-    if (inputText.value != '') {
-        let urlDinamico = `http://www.omdbapi.com/?s=${inputText.value}&apikey=93b236e6&`;
-        fetch(urlDinamico)
-        .then(response => {
-            return response.json();
-        })
-        .then(data => {
-            // Processa i dati ricevuti
-            if (data.Search) {
-                // Cicla attraverso i risultati della ricerca e crea elementi HTML per ognuno
-                data.Search.forEach(result => {
-                    let movieTitle = result.Title;
-                    let moviePoster = result.Poster;
-                    
-                    // Crea elementi HTML per visualizzare i risultati della ricerca
-                    let movieResult = document.createElement('div');
-                    movieResult.classList.add('movieResult');
-
-                    let titleElement = document.createElement('h3');
-                    titleElement.textContent = movieTitle;
-                    
-                    let posterElement = document.createElement('img');
-                    posterElement.src = moviePoster;
-                    
-                    
-                    // Aggiungi gli elementi creati alla pagina
-                    movieResult.appendChild(titleElement);
-                    movieResult.appendChild(posterElement);
-                    
-                    // Aggiungi il risultato della ricerca alla pagina
-                    document.body.appendChild(movieResult);
-                    
-                    
-                });
-            } else {
-                // Gestisci il caso in cui la ricerca non restituisce risultati
-                console.log("Nessun risultato trovato");
-            }
-        })
-        .catch(error => {
-                // Gestisci eventuali errori nella chiamata all'API
-                console.error('Si è verificato un errore:', error);
-            });
+    creaCarosello();
+  }
+  
+  btnNext.addEventListener('click', next);
+  
+  
+  /*****************************************SECONDA PARTE***********************************************************/
+  
+  
+  
+  let locandinaFilm_2 = document.querySelector('#Locandina_2');
+  let inputText = document.querySelector('#inputText').value;
+  let btnCerca = document.querySelector('#btnCerca');
+  
+  
+  
+  function cercaFilmDaInput() {
+  
+  
+  
+  let ricercaFilm = document.querySelector('#inputText').value.trim(); //trim per non avere spazi
+  const apiKey = '93b236e6';
+  
+  const url = encodeURI(`http://www.omdbapi.com/?t=${ricercaFilm}&apikey=${apiKey}`);
+  console.log(url);
+  
+  
+  
+  fetch(url)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Errore nella richiesta API');
+      }
+      return response.json();
+    })
+    .then(data => {
+      // Qui puoi gestire la risposta ricevuta, ad esempio:
+      postaInfoFilm(data);
+  
+      // Esegui ulteriori operazioni con i dati, se necessario
+    })
+    .catch(errore => {
+      console.error('Si è verificato un errore:', errore);
+    });
+  }
+  
+  
+  
+  btnCerca.addEventListener('click', cercaFilmDaInput);
+  
+  
+  
+  function postaInfoFilm(data) {
+    
+    if (data != null && data.Title != null) {
+      console.log('dati validi');
+    locandinaFilm_2.innerHTML = 
+      `
+      <div class="padre">  
+        <div class="container_plot">
+          <h3>Trama di ${data.Title}:</h3>
+          <p>${data.Plot}</p>
+        </div>
+  
+        <div class="container_poster">
+          <h2>${data.Title}</h2>
+          <img alt="poster" src="${data.Poster}">
+        </div>
+      </div>
+      `;  
+  
+     
+    } else {
+      locandinaFilm_2.innerHTML = '<p>Nessun film trovato con questo titolo</p>';
     }
-}
-btnCerca.addEventListener("click",barraRicerca);
-//    http://www.omdbapi.com/?s=your+name.&apikey=93b236e6&",
+   
+  }

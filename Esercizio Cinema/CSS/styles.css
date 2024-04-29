@@ -1,11 +1,18 @@
 body {
     color: rgb(197, 197, 197);
     background-color: rgb(8, 6, 19);
+    font-family: sans-serif;
 }
 
 .containerTop {
     display: flex;
     justify-content: space-around;
+}
+
+#locandinaFilm{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .noUnderline {
@@ -14,7 +21,7 @@ body {
     gap: 1rem;
     font-size: 20px;
     border-radius: 16px;
-    background-color: rgba(255, 255, 0, 0.106);
+    color: rgb(255, 255, 255);
     padding: 1rem;
 }
 
@@ -30,12 +37,11 @@ li, a:hover {
 }
 
 .containerMain {
-    flex-direction: column;
-    height: 2000px;
+    display: flex;
+    height: 800px;
     width: 1250px;
     border: solid 2px yellow;
     margin: auto;
-    align-items: center;
 }
 
 .movieTitle {
@@ -43,35 +49,177 @@ li, a:hover {
     justify-content: center;
     align-items: center;
 }
-
+.back:hover{
+    background-color: #FFA358;
+}
 .back {
     width: 40px;
     height: 30px;
     border-radius: 6px;
     border-style: none;
     margin-right: 6px;
+    transition:background-color 200ms;
+    cursor: pointer;
 }
 
 .movieImg {
-    height: 800px;
-    width: 625px;
+    height: 650px;
+    width: 680px;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: auto;
-    margin-right: auto;
+    
+    margin: auto;
 }
 
+.next:hover{
+    background-color: #FF3DAF;
+}
 .next {
     width: 40px;
     height: 30px;
     border-radius: 6px;
     border-style: none;
     margin-left: 6px;
+    transition:background-color 200ms;
+    cursor: pointer;
 }
+
+/* .movieInfo { 
+    height: 795px;
+    width: 610px;
+    border: solid 2px rgb(255, 0, 34);
+    margin: auto;
+} */
+
+/*.containerUno {
+    display: flex;
+}*/
+
+h1 {
+    margin-top: 0.8rem;
+    margin-left: 2.5rem;
+    margin-bottom: 5rem;
+    font-size: 4rem;
+    font-family: "Honk", system-ui;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-variation-settings:
+    "MORF" 29,
+    "SHLN" 53.2;
+}
+
 
 h2, p {
     display: flex;
     justify-content: center;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family: sans-serif;
+    transition: color 200ms;
+}
+
+.titoloFilm, a{
+    text-decoration: none;
+    transition: color  200ms;
+    color: rgb(197, 197, 197);
+}
+
+.titoloFilm, a:hover{
+    color : #FF3DAF;
+}
+
+.box_2{
+ 
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    margin-left: 2.5rem;
+    margin-top: 2.5rem;
+}
+
+
+#cerca { 
+margin-top: 1.5rem;
+}
+
+#inputText {
+    width: 20%;
+    height: 1.2rem;
+    margin-top: 0.5rem;
+    border-radius: 1rem;
+
+} 
+
+#btnCerca{
+    font-size: 12px;
+    font-weight: bold;
+    font-family: sans-serif;
+    padding: 0.5rem 1rem;
+    margin: 0.25rem;
+    border-radius: 1rem;
+    border: none;
+    outline: none;
+    background: #FFA358;
+    cursor: pointer;
+    transition: background-color 200ms;
+    align-items: start;
+    display: flex;
+    margin-right: auto;
+}
+
+#btnCerca:hover{
+    background-color: #FF3DAF;
+    color:white
+}
+
+hr {
+    margin-top: 5rem;
+}
+
+.nav_bar{
+    display: flex;
+
+}
+
+.mainNav{
+    margin-left: 50rem;
+}
+
+
+.padre{
+    display: flex;
+    justify-content: space-between;
+}
+
+
+
+.container_plot{
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+    margin-left: 2.5rem;
+    margin-right: 5rem;
+    width: 50%;
+    /* flex: 5; */
+
+}
+
+.container_poster{
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+    margin-right: 10rem;
+    /* flex: 5; */
+}
+
+
+
+.movieActors a {
+    color: rgb(197, 197, 197);
+    text-decoration: none;
+    transition: color 200ms;
+}
+
+.movieActors a:hover{
+    color: #FFA358;
 }
